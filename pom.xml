@@ -23,6 +23,7 @@
     <!-- 模块说明：这里声明多个子模块 -->
     <modules>
         <module>springboot-helloword</module>
+        <module>springboot-web</module>
     </modules>
 
     <!-- 继承说明：这里继承SpringBoot提供的父工程 -->
