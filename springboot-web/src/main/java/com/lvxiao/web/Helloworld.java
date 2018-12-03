@@ -1,4 +1,4 @@
-package com.lvxiao.com.lvxiao.web;
+package com.lvxiao.web;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;

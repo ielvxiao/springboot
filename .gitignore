@@ -8,3 +8,5 @@ target
 src/main/webapp/META-INF
 .idea
 *.iml
+*.jar
+*.war
