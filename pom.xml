@@ -24,6 +24,10 @@
     <modules>
         <module>springboot-web</module>
         <module>springboot-service</module>
+        <module>springboot-dao</module>
+        <module>springboot-domain</module>
+        <module>springboot-aop</module>
+        <module>springboot-service</module>
     </modules>
 
     <!-- 继承说明：这里继承SpringBoot提供的父工程 -->
