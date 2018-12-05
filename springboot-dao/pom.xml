@@ -12,5 +12,11 @@
     <artifactId>springboot-dao</artifactId>
     <groupId>com.lvxiao.dao</groupId>
     <version>1.0-SNAPSHOT</version>
-
+<dependencies>
+    <dependency>
+        <groupId>com.lvxiao.domain</groupId>
+        <artifactId>springboot-domain</artifactId>
+        <version>1.0-SNAPSHOT</version>
+    </dependency>
+</dependencies>
 </project>
