@@ -27,7 +27,7 @@
         <module>springboot-dao</module>
         <module>springboot-domain</module>
         <module>springboot-aop</module>
-        <module>springboot-service</module>
+        <module>springboot-config</module>
     </modules>
 
     <!-- 继承说明：这里继承SpringBoot提供的父工程 -->
@@ -40,7 +40,11 @@
     <!-- 版本说明：这里统一管理依赖的版本号 -->
     <dependencyManagement>
         <dependencies>
-
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>8.0.13</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
 

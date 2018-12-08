@@ -21,8 +21,7 @@ public class EmployeeServiceImpl implements EmployeeService {
 //    @Autowired
 //    @Qualifier(value = "UserCache")
 //    private RedisCache redisCache;
-    @Autowired
-    private RedisTemplate redisTemplate;
+
 
     @Cacheable(value = "Employee", key = "#ids")
     @Override

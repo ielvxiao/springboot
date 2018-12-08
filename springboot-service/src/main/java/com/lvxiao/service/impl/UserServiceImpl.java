@@ -14,15 +14,13 @@ import org.springframework.stereotype.Service;
 /**
  * Created by lvxiao on 2018/7/24.
  */
-@Service
+@Service()
 public class UserServiceImpl implements UserService {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(UserServiceImpl.class);
 
     @Autowired
     private UserDao userDao;
-
-    private RedisCache redisCache;
 
     @CachePut(value = "User", key = "'User' + #user.id", condition = "#result != null")
     public User updateUser(User user) {
