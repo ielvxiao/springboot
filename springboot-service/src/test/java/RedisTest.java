@@ -22,5 +22,6 @@ public class RedisTest {
     @Test
     public void testDefaultSettings() {
         User user = userService.selectUserById(1);
+        System.out.println(user.getAge());
     }
 }

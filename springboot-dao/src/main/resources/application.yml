@@ -30,6 +30,18 @@ spring:
       #打开PSCache，并指定每个连接上PSCache的大小。oracle设为true，mysql设为false。分库分表较多推荐设置为false
       pool-prepared-statements: false
       max-pool-prepared-statement-per-connection-size: 20
+  redis:
+    host: lvxiao.slave2.com
+    port: 7000
+    lettuce:
+      pool:
+        # 最大活跃链接数 默认8
+        max-active: 1000
+        # 最大空闲连接数 默认8
+        max-idle: 8
+        # 最小空闲连接数 默认0
+        min-idle: 0
+    password: 123456
 mybatis:
   mapper-locations: classpath:mapper/*.xml
   type-aliases-package: com.lvxiao.domain
