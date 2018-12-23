@@ -10,3 +10,4 @@ src/main/webapp/META-INF
 *.iml
 *.jar
 *.war
+*.log
