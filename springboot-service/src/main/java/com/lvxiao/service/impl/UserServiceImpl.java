@@ -22,38 +22,48 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
-    @CachePut(value = "User", key = "'User' + #user.id", condition = "#result != null")
+    //更新数据后，更新缓存，如果 condition 配置项使结果返回为 null ，不缓存
+    @CachePut(value = "User", key = "'User' + #result.id", condition = "#result != null")
     public User updateUser(User user) {
+        //此处调用 getUser 方法，该方法缓存注解失效 ，
+        //所以这里还会执行 SQL ，将查询到数据库最新数据
+        User user1 = this.selectUserById(user.getId());
+        if (user1 == null) {
+            return null;
+        }
         userDao.updateUser(user);
-        return userDao.selectUserById(user.getId());
+        return user;
     }
 
-    @CacheEvict(value = "User", beforeInvocation=true, key = "'User' + #id")
+    //删除数据,移除缓存
+    @CacheEvict(value = "User", beforeInvocation = false, key = "'User' + #id")
     public Integer deleteUser(Integer id) {
         return userDao.deleteUser(id);
     }
 
     /**
      * 通过ID查询用户
+     *
      * @param id
      * @return
      */
-    @Cacheable(value = "User",key = "'User' + #id")
+    @Cacheable(value = "User", key = "'User' + #id")
     public User selectUserById(int id) {
-        LOGGER.debug("id为{}",id);
+        LOGGER.debug("id为{}", id);
         return userDao.selectUserById(id);
     }
 
     /**
      * 添加用户
+     *
      * @param user
      * @return
      */
-    @CachePut(value = "User", key = "'User' + #user.id", condition = "#result != null")
+    @CachePut(value = "User", key = "'User' + #result.id")
     public User addUser(User user) {
-        LOGGER.debug("添加的用户id为{}",user.getId());
+        LOGGER.debug("添加的用户id为{}", user.getId());
         int rows = userDao.addUser(user);
-        LOGGER.debug("更新了{}行",rows);
+        LOGGER.debug("更新了{}行", rows);
         return userDao.selectUserById(user.getId());
     }
 }
