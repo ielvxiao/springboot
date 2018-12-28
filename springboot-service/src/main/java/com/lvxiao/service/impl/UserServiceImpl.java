@@ -6,6 +6,7 @@ import com.lvxiao.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
@@ -43,11 +44,11 @@ public class UserServiceImpl implements UserService {
 
     /**
      * 通过ID查询用户
-     *
+     *可指定cacheManager
      * @param id
      * @return
      */
-    @Cacheable(value = "User", key = "'User' + #id")
+    @Cacheable(value = "User", key = "'User' + #id",cacheManager = "cacheManager1")
     public User selectUserById(int id) {
         LOGGER.debug("id为{}", id);
         return userDao.selectUserById(id);
