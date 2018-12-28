@@ -30,58 +30,46 @@ import java.time.Duration;
 @EnableCaching
 @Configuration
 public class RedisConfig {
-    private Duration timeToLive = Duration.ZERO;
-    private Duration time2 = Duration.ofHours(1);
-    public void setTimeToLive(Duration timeToLive) {
-        this.timeToLive = timeToLive;
+    private static Jackson2JsonRedisSerializer jackson2JsonRedisSerializer;
+    private static  RedisSerializer<String> redisSerializer;
+    static {
+        jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
+        //解决查询缓存转换异常的问题
+        ObjectMapper om = new ObjectMapper();
+        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
+        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
+        jackson2JsonRedisSerializer.setObjectMapper(om);
+        redisSerializer = new StringRedisSerializer();
     }
 
-    @Bean(name = "cacheManager")
+
+    @Bean(name = "cacheManagerDay")
     @Primary//当有多个管理器的时候，必须使用该注解在一个管理器上注释：表示该管理器为默认的管理器
     public CacheManager cacheManager(RedisConnectionFactory connectionFactory) {
-        RedisSerializer<String> redisSerializer = new StringRedisSerializer();
-        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
-
-        //解决查询缓存转换异常的问题
-        ObjectMapper om = new ObjectMapper();
-        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-        jackson2JsonRedisSerializer.setObjectMapper(om);
-
-        // 配置序列化（解决乱码的问题）
-        RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(timeToLive)
-                .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer))
-                .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer))
-                .disableCachingNullValues();
-
-        RedisCacheManager cacheManager = RedisCacheManager.builder(connectionFactory)
-                .cacheDefaults(config)
-                .build();
-        return cacheManager;
+        return cacheManagerFactory(connectionFactory, Duration.ofDays(1));
     }
 
-    @Bean(name = "cacheManager1")
+    @Bean(name = "cacheManagerHours")
     public CacheManager cacheManager1(RedisConnectionFactory connectionFactory) {
-        RedisSerializer<String> redisSerializer = new StringRedisSerializer();
-        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);
+        return cacheManagerFactory(connectionFactory, Duration.ofHours(1));
+    }
 
-        //解决查询缓存转换异常的问题
-        ObjectMapper om = new ObjectMapper();
-        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);
-        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);
-        jackson2JsonRedisSerializer.setObjectMapper(om);
-
+    /**
+     * 根据不同的缓存时间创建不同的CacheManager
+     * @param connectionFactory RedisConnectionFactory
+     * @param time Duration
+     * @return CacheManager instance
+     */
+    private CacheManager cacheManagerFactory(RedisConnectionFactory connectionFactory, Duration time) {
         // 配置序列化（解决乱码的问题）
         RedisCacheConfiguration config = RedisCacheConfiguration.defaultCacheConfig()
-                .entryTtl(time2)
+                .entryTtl(time)
                 .serializeKeysWith(RedisSerializationContext.SerializationPair.fromSerializer(redisSerializer))
                 .serializeValuesWith(RedisSerializationContext.SerializationPair.fromSerializer(jackson2JsonRedisSerializer))
                 .disableCachingNullValues();
 
-        RedisCacheManager cacheManager = RedisCacheManager.builder(connectionFactory)
+        return RedisCacheManager.builder(connectionFactory)
                 .cacheDefaults(config)
                 .build();
-        return cacheManager;
     }
 }

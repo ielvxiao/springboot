@@ -48,7 +48,7 @@ public class UserServiceImpl implements UserService {
      * @param id
      * @return
      */
-    @Cacheable(value = "User", key = "'User' + #id",cacheManager = "cacheManager1")
+    @Cacheable(value = "User", key = "'User' + #id",cacheManager = "cacheManagerHours")
     public User selectUserById(int id) {
         LOGGER.debug("id为{}", id);
         return userDao.selectUserById(id);
