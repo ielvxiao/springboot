@@ -1,6 +1,6 @@
 package com.lvxiao.service.impl;
 
-import com.lvxiao.dao.DepartmentsDao;
+import com.lvxiao.dao.employee.DepartmentsDao;
 import com.lvxiao.domain.Departments;
 import com.lvxiao.service.DepartmentsService;
 import org.springframework.beans.factory.annotation.Autowired;

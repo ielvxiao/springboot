@@ -4,17 +4,28 @@ server:
   port: 8080
 spring:
   datasource:
-    name: user_db
+    user:
+      #user
+      url: jdbc:mysql://lvxiao.master.com:3306/user_db?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      username: root
+      password: tiptop
+      driver-class-name: com.mysql.jdbc.Driver
+    employee:
+      #employee
+      url: jdbc:mysql://lvxiao.master.com:3306/employees?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      username: root
+      password: tiptop
+      driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     #druid相关配置
     druid:
       #监控统计拦截的filters
       filters: stat
-      driver-class-name: com.mysql.jdbc.Driver
-      #基本属性
-      url: jdbc:mysql://lvxiao.master.com:3306/user_db?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
-      username: root
-      password: tiptop
+#      driver-class-name: com.mysql.jdbc.Driver
+#      #基本属性
+#      url: jdbc:mysql://lvxiao.master.com:3306/user_db?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+#      username: root
+#      password: tiptop
       #配置初始化大小/最小/最大
       initial-size: 1
       min-idle: 1
@@ -66,9 +77,9 @@ spring:
   cache:
     type: redis
 
-mybatis:
-  mapper-locations: classpath:mapper/*.xml
-  type-aliases-package: com.lvxiao.domain
+#mybatis:
+#  mapper-locations: classpath:mapper/*.xml
+#  type-aliases-package: com.lvxiao.domain
 #分页插件
 pagehelper:
   helperDialect: mysql

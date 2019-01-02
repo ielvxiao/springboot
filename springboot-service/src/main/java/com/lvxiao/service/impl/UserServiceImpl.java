@@ -1,12 +1,11 @@
 package com.lvxiao.service.impl;
 
-import com.lvxiao.dao.UserDao;
+import com.lvxiao.dao.user.UserDao;
 import com.lvxiao.domain.User;
 import com.lvxiao.service.UserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;

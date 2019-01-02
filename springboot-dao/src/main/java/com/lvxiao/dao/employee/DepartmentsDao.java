@@ -1,4 +1,4 @@
-package com.lvxiao.dao;
+package com.lvxiao.dao.employee;
 
 
 import com.lvxiao.domain.Departments;

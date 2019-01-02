@@ -1,4 +1,4 @@
-package com.lvxiao.dao;
+package com.lvxiao.dao.user;
 
 
 import com.lvxiao.domain.User;
