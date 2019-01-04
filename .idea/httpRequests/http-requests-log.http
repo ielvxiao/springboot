@@ -1,0 +1,46 @@
+GET http://127.0.0.1:8080/advice/exception
+
+<> 2019-01-05T014143.500.json
+
+###
+
+GET http://127.0.0.1:8080/exception
+
+<> 2019-01-05T012839.404.json
+
+###
+
+GET http://127.0.0.1:8080/exception
+
+<> 2019-01-05T012559.500.json
+
+###
+
+GET http://127.0.0.1:8080/exception
+
+<> 2019-01-05T012146.500.json
+
+###
+
+GET http://127.0.0.1:8080/exception
+
+<> 2019-01-05T012130.500.json
+
+###
+
+GET http://127.0.0.1:8080/exception
+
+<> 2019-01-05T011128.500.json
+
+###
+
+GET http://127.0.0.1:8080/user/select
+
+###
+
+GET http://127.0.0.1:8080/user/select
+
+<> 2018-12-22T122319.500.json
+
+###
+
