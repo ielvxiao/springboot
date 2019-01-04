@@ -12,3 +12,4 @@ src/main/webapp/META-INF
 *.war
 *.log
 **/rebel.xml
+**/.idea
