@@ -26,7 +26,6 @@
         <module>springboot-service</module>
         <module>springboot-dao</module>
         <module>springboot-domain</module>
-        <module>springboot-aop</module>
         <module>springboot-config</module>
     </modules>
 
