@@ -6,13 +6,13 @@ spring:
   datasource:
     user:
       #user
-      url: jdbc:mysql://lvxiao.master.com:3306/user_db?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      url: jdbc:mysql://${base.url}:3306/user_db?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
       username: root
       password: tiptop
       driver-class-name: com.mysql.jdbc.Driver
     employee:
       #employee
-      url: jdbc:mysql://lvxiao.master.com:3306/employees?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
+      url: jdbc:mysql://${base.url}:3306/employees?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
       username: root
       password: tiptop
       driver-class-name: com.mysql.jdbc.Driver
@@ -21,11 +21,6 @@ spring:
     druid:
       #监控统计拦截的filters
       filters: stat
-#      driver-class-name: com.mysql.jdbc.Driver
-#      #基本属性
-#      url: jdbc:mysql://lvxiao.master.com:3306/user_db?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
-#      username: root
-#      password: tiptop
       #配置初始化大小/最小/最大
       initial-size: 1
       min-idle: 1
@@ -76,10 +71,31 @@ spring:
         min-idle: 0
   cache:
     type: redis
-
-#mybatis:
-#  mapper-locations: classpath:mapper/*.xml
-#  type-aliases-package: com.lvxiao.domain
+  kafka:
+    bootstrap-servers: ${base.url}:9092
+    #设置一个默认组
+    producer:
+      retries: 0
+      batch-size: 16384
+      buffer-memory: 33554432
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.apache.kafka.common.serialization.StringSerializer
+      properties:
+        linger.ms: 1000
+    consumer:
+      enable-auto-commit: false
+      auto-commit-interval: 100ms
+      key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      value-deserializer: org.apache.kafka.common.serialization.StringDeserializer
+      properties:
+        session.timeout.ms: 15000
+kafka:
+  topic:
+    group-id: topicGroupId
+    topic-name:
+      - topic1
+      - topic2
+      - topic3
 #分页插件
 pagehelper:
   helperDialect: mysql
