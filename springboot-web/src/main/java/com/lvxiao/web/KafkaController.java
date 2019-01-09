@@ -1,10 +1,13 @@
 package com.lvxiao.web;
 
+import com.alibaba.fastjson.JSON;
 import com.lvxiao.domain.User;
 import com.lvxiao.service.impl.IndicatorService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.support.DefaultSingletonBeanRegistry;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 /**
@@ -26,9 +29,12 @@ public class KafkaController {
 
     @RequestMapping("/test")
     @ResponseBody
-    public String testKafka(String topic, Integer id, Integer age, String name) {
+    public String testKafka(@RequestParam(name = "topic_value", required = true) String topic
+            , @RequestParam(name = "user_id", required = false,defaultValue = "0") Integer id
+            , @RequestParam(name = "user_age") Integer age, @RequestParam(name = "user_name", required = false, defaultValue = "defaultValue") String name) {
         User user = new User(id, name, age);
-        indicatorService.sendMessage(topic, user);
+        String jsonStr = JSON.toJSONString(user);
+        indicatorService.sendMessage(topic, jsonStr);
         return user.toString();
     }
 }
