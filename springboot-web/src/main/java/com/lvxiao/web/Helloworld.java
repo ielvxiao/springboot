@@ -25,4 +25,9 @@ public class Helloworld {
         return "hello world";
     }
 
+    @RequestMapping("/")
+    @ResponseBody
+    public String index() {
+        return "运行成功";
+    }
 }

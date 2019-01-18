@@ -12,7 +12,9 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 /**
- * Created by lvxiao on 2018/7/24.
+ *
+ * @author lvxiao
+ * @date 2018/7/24
  */
 @Service()
 public class UserServiceImpl implements UserService {
@@ -22,20 +24,26 @@ public class UserServiceImpl implements UserService {
     @Autowired
     private UserDao userDao;
 
-    //更新数据后，更新缓存，如果 condition 配置项使结果返回为 null ，不缓存
+    /**
+     * 更新数据后，更新缓存，如果 condition 配置项使结果返回为 null ，不缓存
+     * @param user
+     * @return
+     */
+    @Override
     @CachePut(value = "User", key = "'User' + #result.id", condition = "#result != null")
     public User updateUser(User user) {
         //此处调用 getUser 方法，该方法缓存注解失效 ，
         //所以这里还会执行 SQL ，将查询到数据库最新数据
-        User user1 = this.selectUserById(user.getId());
-        if (user1 == null) {
-            return null;
-        }
         userDao.updateUser(user);
         return user;
     }
 
-    //删除数据,移除缓存
+    /**
+     * 删除数据,移除缓存
+     * @param id
+     * @return
+     */
+    @Override
     @CacheEvict(value = "User", beforeInvocation = false, key = "'User' + #id")
     public Integer deleteUser(Integer id) {
         return userDao.deleteUser(id);
@@ -47,6 +55,7 @@ public class UserServiceImpl implements UserService {
      * @param id
      * @return
      */
+    @Override
     @Cacheable(value = "User", key = "'User' + #id",cacheManager = "cacheManagerHours")
     public User selectUserById(int id) {
         LOGGER.debug("id为{}", id);
@@ -59,6 +68,7 @@ public class UserServiceImpl implements UserService {
      * @param user
      * @return
      */
+    @Override
     @CachePut(value = "User", key = "'User' + #result.id")
     public User addUser(User user) {
         LOGGER.debug("添加的用户id为{}", user.getId());

@@ -1,5 +1,5 @@
 base:
-  url:  lvxiao.master.com
+  url:  ubuntu.lvxiao.com
 server:
   port: 8080
 spring:
@@ -8,13 +8,13 @@ spring:
       #user
       url: jdbc:mysql://${base.url}:3306/user_db?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
       username: root
-      password: tiptop
+      password: 123456
       driver-class-name: com.mysql.jdbc.Driver
     employee:
       #employee
       url: jdbc:mysql://${base.url}:3306/employees?useUnicode=true&characterEncoding=UTF-8&allowMultiQueries=true
       username: root
-      password: tiptop
+      password: 123456
       driver-class-name: com.mysql.jdbc.Driver
     type: com.alibaba.druid.pool.DruidDataSource
     #druid相关配置
@@ -59,16 +59,13 @@ spring:
       max-wait: 10000
       test-on-borrow: true
   redis:
-    cluster:
-      nodes: ${base.url}:7700,${base.url}:7701,${base.url}:7702,${base.url}:7703,${base.url}:7704,${base.url}:7705
+    host: ${base.url}
+    port: 6379
+    password: lvxiao123456
     lettuce:
       pool:
-        # 最大活跃链接数 默认8
         max-active: 1000
-        # 最大空闲连接数 默认8
-        max-idle: 100
-        # 最小空闲连接数 默认0
-        min-idle: 0
+        min-idle: 10
   cache:
     type: redis
   kafka:
