@@ -8,7 +8,7 @@ spring:
   dubbo:
     scan: com.lvxiao.service.dubbo
     application:
-      name: dubbo_server
+      name: dubbo_client
     registry:
       address: zookeeper://${base.url}:2181
     protocol:
