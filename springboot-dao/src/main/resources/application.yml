@@ -3,6 +3,15 @@ base:
 server:
   port: 8080
 spring:
+  dubbo:
+    scan: com.lvxiao.service.dubbo
+    application:
+      name: dubbo_server
+    registry:
+      address: zookeeper://${base.url}:2181
+    protocol:
+      name: dubbo
+      port: 20880
   datasource:
     user:
       #user

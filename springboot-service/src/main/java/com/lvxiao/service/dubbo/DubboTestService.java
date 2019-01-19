@@ -1,4 +1,4 @@
-package com.lvxiao.service;
+package com.lvxiao.service.dubbo;
 
 import org.springframework.stereotype.Component;
 
