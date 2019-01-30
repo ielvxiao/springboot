@@ -1,0 +1,51 @@
+Configutation:
+  name: Default
+  Properties:
+    Property:
+      - name: pattern
+        value: "%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p %c{1}:%L -%m%n"
+      - name: displayName
+        value: EurekaServer
+  Appenders:
+    Console:
+      name: console
+      target: SYSTEM_OUT
+      follow: true
+      PatternLayout:
+        pattern: ${pattern}
+    File:
+      name: error
+      fileName: ${displayName}_error.log
+      append: false
+      ThresholdFilter:
+        level: ERROR
+        onMatch: ACCEPT
+        onMismatch: DENY
+      PatternLayout:
+        pattern: ${pattern}
+    RollingFile:
+      name: rollingFile
+      fileName: ${displayName}.log
+      filePattern: ${displayName}_%d{yyyy-MM-dd}.log
+      PatternLayout:
+        pattern: ${pattern}
+      SizeBasedTriggeringPolicy:
+        size: "50 MB"
+  Loggers:
+    Root:
+      level: debug
+      AppenderRef:
+        - ref: console
+        - ref: error
+        - ref: rollingFile
+    Logger:
+      - name: org.springframework
+        level: WARN
+      - name: com.lvxiao
+        level: DEBUG
+      - name: com.lvxiao
+        level: DEBUG
+      - name: org.apache.kafka.clients.consumer
+        level: ERROR
+      - name: org.apache.zookeeper
+        level: ERROR

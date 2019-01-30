@@ -38,7 +38,9 @@
             /> <Logger name="org.apache.tomcat.util.net.NioSelectorPool" level="WARN"
             /> -->
         <Logger name="org.springframework" level="WARN" />
-        <Logger name="com.xuweihao" level="DEBUG" />
+        <Logger name="com.lvxiao" level="DEBUG" />
+        <Logger name="org.apache.kafka.clients.consumer" level="ERROR" />
+        <Logger name="org.apache.zookeeper" level="ERROR"/>
         <Root level="DEBUG">
             <AppenderRef ref="console"></AppenderRef>
             <AppenderRef ref="error"></AppenderRef>
