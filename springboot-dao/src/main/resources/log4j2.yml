@@ -5,7 +5,7 @@ Configutation:
       - name: pattern
         value: "%d{yyyy-MM-dd HH:mm:ss,SSS} %-5p %c{1}:%L -%m%n"
       - name: displayName
-        value: EurekaServer
+        value: springboot
   Appenders:
     Console:
       name: console
@@ -15,7 +15,7 @@ Configutation:
         pattern: ${pattern}
     File:
       name: error
-      fileName: ${displayName}_error.log
+      fileName: logs/${displayName}_error.log
       append: false
       ThresholdFilter:
         level: ERROR
@@ -25,8 +25,8 @@ Configutation:
         pattern: ${pattern}
     RollingFile:
       name: rollingFile
-      fileName: ${displayName}.log
-      filePattern: ${displayName}_%d{yyyy-MM-dd}.log
+      fileName: logs/${displayName}.log
+      filePattern: logs/${displayName}_%d{yyyy-MM-dd}.log
       PatternLayout:
         pattern: ${pattern}
       SizeBasedTriggeringPolicy:
