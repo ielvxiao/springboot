@@ -1,10 +1,11 @@
 package com.lvxiao.web;
 
-import com.lvxiao.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletRequest;
 
 /**
  * Author lvxiao
@@ -16,8 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class Helloworld {
 
     @Autowired
-    private EmployeeService employeeService;
-
+    private HttpServletRequest request;
     @RequestMapping("/hello")
     @ResponseBody
     public String hello() {
@@ -27,6 +27,6 @@ public class Helloworld {
     @RequestMapping("/")
     @ResponseBody
     public String index() {
-        return "运行成功";
+        return "运行成功! tomcat地址：" + request.getLocalAddr() + "。端口：" + request.getLocalPort();
     }
 }
