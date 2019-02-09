@@ -10,6 +10,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.CachePut;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
@@ -47,6 +48,18 @@ public class UserServiceImpl implements UserService {
     @CacheEvict(value = "User", beforeInvocation = false, key = "'User' + #id")
     public Integer deleteUser(Integer id) {
         return userDao.deleteUser(id);
+    }
+
+    @Override
+    @Transactional(rollbackFor = Exception.class)
+    public void testTransational() {
+        //查找一个不存在的id
+        User user = userDao.selectUserById(3);
+        if (user == null) {
+            userDao.addUser(new User(3, "test transactinal", 99));
+        }
+        //此处会抛异常，上边的addUser方法就会失败。
+        int i = 5 / 0;
     }
 
     /**
