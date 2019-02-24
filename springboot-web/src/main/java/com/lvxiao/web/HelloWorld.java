@@ -14,7 +14,7 @@ import javax.servlet.http.HttpServletRequest;
  * Version V1.0
  */
 @RestController
-public class Helloworld {
+public class HelloWorld {
 
     @Autowired
     private HttpServletRequest request;
