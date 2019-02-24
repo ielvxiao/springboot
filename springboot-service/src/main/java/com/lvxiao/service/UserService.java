@@ -15,4 +15,6 @@ public interface UserService {
     User updateUser(User user);
 
     Integer deleteUser(Integer id);
+
+    void testTransational();
 }

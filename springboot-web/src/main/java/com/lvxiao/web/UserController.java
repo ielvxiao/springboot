@@ -40,4 +40,10 @@ public class UserController {
     public Integer deleteUser(Integer id) {
         return userService.deleteUser(id);
     }
+
+    @RequestMapping("/rollback")
+    @ResponseBody
+    public void rollBackTest() {
+        userService.testTransational();
+    }
 }
