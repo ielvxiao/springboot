@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
  * @version V1.0
  * @date 2019-01-19 18:42
  */
-@Service(version = "${demo.version}")
+@Service(version = "${demo.version}", retries = 5, loadbalance = "leastactive", actives = 10)
 @Component
 public class DubboTestServiceImpl implements DubboTestService {
     @Override
